@@ -309,38 +309,38 @@ const FlightPathVisualization = () => {
         
         // Lewy słup
         const leftPillar = new THREE.Mesh(
-          new THREE.BoxGeometry(0.05, 3, 0.05),
+          new THREE.BoxGeometry(0.05, 3.2, 0.05),
           new THREE.MeshStandardMaterial({
             color: 0xcccccc,
             metalness: 0.80,
             roughness: 0.2,
           })
         );
-        leftPillar.position.set(0, -1.5, 0);
+        leftPillar.position.set(0, -1.2, 0);
         doorFrameGroup.add(leftPillar);
 
         // Prawy słup
         const rightPillar = new THREE.Mesh(
-          new THREE.BoxGeometry(0.05, 3, 0.05),
+          new THREE.BoxGeometry(0.05, 3.2, 0.05),
           new THREE.MeshStandardMaterial({
             color: 0xcccccc,
             metalness: 0.80,
             roughness: 0.2,
           })
         );
-        rightPillar.position.set(2, -1.5, 0);
+        rightPillar.position.set(1.8, -1.2, 0);
         doorFrameGroup.add(rightPillar);
 
         // Górna belka
         const topBeam = new THREE.Mesh(
-          new THREE.BoxGeometry(2, 0.05, 0.05),
+          new THREE.BoxGeometry(1.8, 0.05, 0.05),
           new THREE.MeshStandardMaterial({
             color: 0xcccccc,
             metalness: 0.80,
             roughness: 0.2,
           })
         );
-        topBeam.position.set(1, 0, 0);
+        topBeam.position.set(0.9, 0.38, 0);
         doorFrameGroup.add(topBeam);
 
         // Pozycjonowanie całej ramy
@@ -348,7 +348,7 @@ const FlightPathVisualization = () => {
         doorFrameGroup.position.set(
           Math.cos(panel1Angle) * 4.1 - 0.4,
           0,
-          Math.sin(panel1Angle) * 4.1 + 2.02
+          Math.sin(panel1Angle) * 4.1 + 1.9
         );
         doorFrameGroup.rotation.y = panel1Angle + Math.PI / 2 + (-15 * Math.PI / 180);
         scene.add(doorFrameGroup);
