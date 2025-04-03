@@ -124,7 +124,8 @@ const FlightPathVisualization = () => {
     controls.screenSpacePanning = false;
     controls.minDistance = 5;
     controls.maxDistance = 20;
-    controls.maxPolarAngle = Math.PI;
+    controls.maxPolarAngle = Math.PI / 2;
+    controls.minPolarAngle = 0;
     controlsRef.current = controls;
 
     // Światła
@@ -261,7 +262,7 @@ const FlightPathVisualization = () => {
       const angle = (i / 12) * Math.PI * 2;
       const pillarGeometry = new THREE.BoxGeometry(0.05, 6, 0.05);
       const pillarMaterial = i === 0 ? new THREE.MeshStandardMaterial({
-        color: 0xff0000, // Czerwony kolor dla panelu 1
+        color: 0xcccccc,
         metalness: 0.80,
         roughness: 0.2,
       }) : metalMaterial;
@@ -309,7 +310,11 @@ const FlightPathVisualization = () => {
         // Lewy słup
         const leftPillar = new THREE.Mesh(
           new THREE.BoxGeometry(0.05, 3, 0.05),
-          pillarMaterial
+          new THREE.MeshStandardMaterial({
+            color: 0xcccccc,
+            metalness: 0.80,
+            roughness: 0.2,
+          })
         );
         leftPillar.position.set(0, -1.5, 0);
         doorFrameGroup.add(leftPillar);
@@ -317,7 +322,11 @@ const FlightPathVisualization = () => {
         // Prawy słup
         const rightPillar = new THREE.Mesh(
           new THREE.BoxGeometry(0.05, 3, 0.05),
-          pillarMaterial
+          new THREE.MeshStandardMaterial({
+            color: 0xcccccc,
+            metalness: 0.80,
+            roughness: 0.2,
+          })
         );
         rightPillar.position.set(2, -1.5, 0);
         doorFrameGroup.add(rightPillar);
@@ -325,7 +334,11 @@ const FlightPathVisualization = () => {
         // Górna belka
         const topBeam = new THREE.Mesh(
           new THREE.BoxGeometry(2, 0.05, 0.05),
-          pillarMaterial
+          new THREE.MeshStandardMaterial({
+            color: 0xcccccc,
+            metalness: 0.80,
+            roughness: 0.2,
+          })
         );
         topBeam.position.set(1, 0, 0);
         doorFrameGroup.add(topBeam);
@@ -341,45 +354,6 @@ const FlightPathVisualization = () => {
         scene.add(doorFrameGroup);
       }
     }
-
-    // Dodanie oznaczeń kierunków
-    const directions = [
-      { text: 'N', position: new THREE.Vector3(0, 0, -4.3) },
-      { text: 'S', position: new THREE.Vector3(0, 0, 4.3) },
-      { text: 'E', position: new THREE.Vector3(4.3, 0, 0) },
-      { text: 'W', position: new THREE.Vector3(-4.3, 0, 0) }
-    ];
-
-    directions.forEach(dir => {
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      canvas.width = 256;
-      canvas.height = 256;
-      context.fillStyle = '#000000';
-      context.font = 'Bold 80px Arial';
-      context.textAlign = 'center';
-      context.textBaseline = 'middle';
-      context.fillText(dir.text, 128, 128);
-
-      const texture = new THREE.CanvasTexture(canvas);
-      const material = new THREE.MeshBasicMaterial({
-        map: texture,
-        transparent: true,
-        opacity: 0.8,
-        side: THREE.DoubleSide
-      });
-
-      const geometry = new THREE.PlaneGeometry(1, 1);
-      const direction = new THREE.Mesh(geometry, material);
-      
-      // Ustawiamy pozycję i obrót w zależności od kierunku
-      direction.position.copy(dir.position);
-      direction.position.y = 2; // Wyżej niż drzwi
-      
-      // Obracamy w kierunku środka tunelu
-      direction.lookAt(0, 2, 0);
-      scene.add(direction);
-    });
 
     // Dodanie trasy lotu
     const pathPoints = [];
