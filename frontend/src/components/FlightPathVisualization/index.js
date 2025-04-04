@@ -104,6 +104,24 @@ const ControlSection = styled.div`
   }
 `;
 
+// Dodaj nowy styled component dla suwaka
+const SpeedSlider = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 5px;
+
+  input {
+    width: 100%;
+  }
+
+  .speed-value {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+  }
+`;
+
 const FlightPathVisualization = () => {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
@@ -114,6 +132,7 @@ const FlightPathVisualization = () => {
   const [animationProgress, setAnimationProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const animationRef = useRef(null);
+  const [animationSpeed, setAnimationSpeed] = useState(0.2); // Domyślna prędkość 0.2 (1x)
 
   // Referencje do grup obiektów
   const floorGroupRef = useRef(null);
@@ -121,6 +140,8 @@ const FlightPathVisualization = () => {
 
   // Stany dla widoczności komponentów
   const [showUpperStructure, setShowUpperStructure] = useState(true);
+  const [showPath, setShowPath] = useState(true);
+  const [showPanelNumbers, setShowPanelNumbers] = useState(false); // Domyślnie wyłączone
 
   useEffect(() => {
     // Inicjalizacja sceny
@@ -319,7 +340,7 @@ const FlightPathVisualization = () => {
       const context = canvas.getContext('2d');
       canvas.width = 256;
       canvas.height = 256;
-      context.fillStyle = i === 0 ? '#ff0000' : '#000000'; // Czerwony kolor dla panelu 1
+      context.fillStyle = i === 0 ? '#ff0000' : '#000000';
       context.font = 'Bold 120px Arial';
       context.textAlign = 'center';
       context.textBaseline = 'middle';
@@ -335,6 +356,7 @@ const FlightPathVisualization = () => {
 
       const numberGeometry = new THREE.PlaneGeometry(1, 1);
       const number = new THREE.Mesh(numberGeometry, numberMaterial);
+      number.visible = showPanelNumbers; // Ustawienie początkowej widoczności
       
       const panelCenterAngle = ((i + 0.5) / 12) * Math.PI * 2;
       number.position.set(
@@ -417,16 +439,35 @@ const FlightPathVisualization = () => {
     const pathMaterial = new THREE.LineBasicMaterial({ color: 0xff0000, linewidth: 2 });
     const path = new THREE.Line(pathGeometry, pathMaterial);
     scene.add(path);
-    pathRef.current = path;
+
+    // Dodanie sfery do animacji - większa i czerwona
+    const sphereGeometry = new THREE.SphereGeometry(0.3, 32, 32); // Zwiększony rozmiar
+    const sphereMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff0000,  // Czerwony kolor
+      metalness: 0.7,
+      roughness: 0.3,
+      emissive: 0xff0000,  // Czerwone świecenie
+      emissiveIntensity: 0.5  // Mocniejsze świecenie
+    });
+    const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    
+    // Ustawiamy sferę na początku ścieżki
+    sphere.position.copy(pathPoints[0]);
+    scene.add(sphere);
+
+    // Zapisanie referencji
+    pathRef.current = {
+      points: pathPoints,
+      sphere: sphere,
+      path: path
+    };
 
     // Renderowanie
     const render = () => {
-      // Aktualizacja kontrolek
       if (controlsRef.current) {
         controlsRef.current.update();
       }
       
-      // Renderowanie
       if (rendererRef.current && cameraRef.current) {
         rendererRef.current.render(scene, cameraRef.current);
       }
@@ -468,18 +509,26 @@ const FlightPathVisualization = () => {
     };
   }, []);
 
-  // Animacja trasy lotu
+  // Efekt do aktualizacji widoczności ścieżki
+  useEffect(() => {
+    if (pathRef.current && pathRef.current.path) {
+      pathRef.current.path.visible = showPath;
+    }
+  }, [showPath]);
+
+  // Animacja trasy lotu - z kontrolą prędkości
   useEffect(() => {
     if (!pathRef.current) return;
     
-    const pathPoints = pathRef.current.geometry.attributes.position.array;
-    const numPoints = pathPoints.length / 3;
-    
-    const animate = () => {
+    let lastTime = performance.now();
+    const animate = (currentTime) => {
       if (!isPlaying) return;
       
+      const deltaTime = (currentTime - lastTime) / 1000;
+      lastTime = currentTime;
+      
       setAnimationProgress(prev => {
-        const newProgress = (prev + 0.005) % 1;
+        const newProgress = (prev + animationSpeed * deltaTime) % 1;
         return newProgress;
       });
       
@@ -487,7 +536,7 @@ const FlightPathVisualization = () => {
     };
     
     if (isPlaying) {
-      animationRef.current = requestAnimationFrame(animate);
+      animate(lastTime);
     }
     
     return () => {
@@ -495,7 +544,29 @@ const FlightPathVisualization = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isPlaying]);
+  }, [isPlaying, animationSpeed]);
+
+  // Efekt do aktualizacji pozycji sfery
+  useEffect(() => {
+    if (!pathRef.current || !pathRef.current.sphere || !pathRef.current.points) return;
+
+    const { sphere, points } = pathRef.current;
+    if (!points || points.length === 0) return;
+
+    const index = Math.floor(animationProgress * (points.length - 1));
+    const nextIndex = (index + 1) % points.length;
+    
+    const point1 = points[index];
+    const point2 = points[nextIndex];
+    
+    if (!point1 || !point2) return;
+
+    // Bezpieczne ustawienie pozycji sfery
+    const t = animationProgress * points.length % 1;
+    sphere.position.x = point1.x + (point2.x - point1.x) * t;
+    sphere.position.y = point1.y + (point2.y - point1.y) * t;
+    sphere.position.z = point1.z + (point2.z - point1.z) * t;
+  }, [animationProgress]);
 
   // Efekt do aktualizacji widoczności komponentów
   useEffect(() => {
@@ -503,6 +574,17 @@ const FlightPathVisualization = () => {
       upperStructureGroupRef.current.visible = showUpperStructure;
     }
   }, [showUpperStructure]);
+
+  // Efekt do aktualizacji widoczności numerów paneli
+  useEffect(() => {
+    if (upperStructureGroupRef.current) {
+      upperStructureGroupRef.current.children.forEach(child => {
+        if (child instanceof THREE.Mesh && child.geometry instanceof THREE.PlaneGeometry) {
+          child.visible = showPanelNumbers;
+        }
+      });
+    }
+  }, [showPanelNumbers]);
 
   return (
     <PageWrapper>
@@ -517,6 +599,18 @@ const FlightPathVisualization = () => {
               >
                 Górna struktura i tunel
               </ToggleButton>
+              <ToggleButton 
+                active={showPath} 
+                onClick={() => setShowPath(!showPath)}
+              >
+                Ścieżka lotu
+              </ToggleButton>
+              <ToggleButton 
+                active={showPanelNumbers} 
+                onClick={() => setShowPanelNumbers(!showPanelNumbers)}
+              >
+                Numery paneli
+              </ToggleButton>
             </ControlSection>
             <ControlSection>
               <h3>Sterowanie</h3>
@@ -526,6 +620,17 @@ const FlightPathVisualization = () => {
               >
                 {isPlaying ? 'Stop' : 'Start'}
               </ToggleButton>
+              <SpeedSlider>
+                <div className="speed-value">Prędkość: {(animationSpeed * 5).toFixed(1)}x</div>
+                <input 
+                  type="range" 
+                  min="0.1" 
+                  max="0.4" 
+                  step="0.05" 
+                  value={animationSpeed}
+                  onChange={(e) => setAnimationSpeed(parseFloat(e.target.value))}
+                />
+              </SpeedSlider>
             </ControlSection>
           </ControlPanel>
           <ControlsPanel>
