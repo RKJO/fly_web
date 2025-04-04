@@ -11,17 +11,6 @@ const PageWrapper = styled.div`
   background: #f5f5f5;
 `;
 
-const NavBar = styled.nav`
-  width: 100%;
-  height: 60px;
-  background: #1a1a1a;
-  color: white;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-`;
-
 const MainContent = styled.div`
   flex: 1;
   display: flex;
@@ -30,7 +19,7 @@ const MainContent = styled.div`
 
 const VisualizationContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 260px);
+  height: calc(100vh - 200px);
   background: #ffffff;
   position: relative;
   border-radius: 8px;
@@ -78,6 +67,43 @@ const DescriptionSection = styled.div`
   }
 `;
 
+const ControlPanel = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 100;
+  min-width: 200px;
+`;
+
+const ToggleButton = styled.button`
+  background: ${props => props.active ? '#4CAF50' : '#f5f5f5'};
+  color: ${props => props.active ? 'white' : 'black'};
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  margin: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: ${props => props.active ? '#45a049' : '#e0e0e0'};
+  }
+`;
+
+const ControlSection = styled.div`
+  margin-bottom: 15px;
+  
+  h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #333;
+  }
+`;
+
 const FlightPathVisualization = () => {
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
@@ -89,17 +115,24 @@ const FlightPathVisualization = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const animationRef = useRef(null);
 
+  // Referencje do grup obiektów
+  const floorGroupRef = useRef(null);
+  const upperStructureGroupRef = useRef(null);
+
+  // Stany dla widoczności komponentów
+  const [showUpperStructure, setShowUpperStructure] = useState(true);
+
   useEffect(() => {
     // Inicjalizacja sceny
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff); // Białe tło
+    scene.background = new THREE.Color(0xffffff);
     sceneRef.current = scene;
 
     // Kamera
     const camera = new THREE.PerspectiveCamera(
       75,
       mountRef.current.clientWidth / mountRef.current.clientHeight,
-      0.1,
+      0.02,
       1000
     );
     camera.position.set(8, 2, 8);
@@ -148,17 +181,28 @@ const FlightPathVisualization = () => {
     sideLight2.position.set(-5, 0, 0);
     scene.add(sideLight2);
 
-    // Podstawa tunelu (metalowa kratka)
-    const floorGroup = new THREE.Group();
-    
-    // Zewnętrzny pierścień podłogi
-    const floorRingGeometry = new THREE.RingGeometry(3.8, 4.2, 12, 1);
+    // Materiały
+    const metalMaterial = new THREE.MeshStandardMaterial({
+      color: 0xcccccc,
+      metalness: 0.9,
+      roughness: 0.2,
+    });
+
     const floorMaterial = new THREE.MeshStandardMaterial({
       color: 0x888888,
       metalness: 0.9,
       roughness: 0.3,
     });
 
+    // Geometrie
+    const topRingGeometry = new THREE.TorusGeometry(4.3, 0.15, 16, 12);
+    const floorRingGeometry = new THREE.RingGeometry(3.8, 4.2, 12, 1);
+
+    // Grupa dla podłogi (z dolnym pierścieniem)
+    const floorGroup = new THREE.Group();
+    floorGroupRef.current = floorGroup;
+    
+    // Zewnętrzny pierścień podłogi
     const floorRing = new THREE.Mesh(floorRingGeometry, floorMaterial);
     floorRing.rotation.x = -Math.PI / 2;
     floorRing.position.y = -3;
@@ -216,27 +260,25 @@ const FlightPathVisualization = () => {
       floorGroup.add(line);
     }
 
-    scene.add(floorGroup);
-
-    // Metalowe wykończenie góry
-    const topRingGeometry = new THREE.TorusGeometry(4.3, 0.15, 16, 12);
-    const metalMaterial = new THREE.MeshStandardMaterial({
-      color: 0xcccccc,
-      metalness: 0.9,
-      roughness: 0.2,
-    });
-    const topRing = new THREE.Mesh(topRingGeometry, metalMaterial);
-    topRing.position.y = 3;
-    topRing.rotation.x = Math.PI / 2;
-    topRing.castShadow = true;
-    scene.add(topRing);
-
-    // Metalowe wykończenie dołu
+    // Metalowe wykończenie dołu (dodajemy do grupy podłogi)
     const bottomRing = new THREE.Mesh(topRingGeometry, metalMaterial);
     bottomRing.position.y = -3;
     bottomRing.rotation.x = Math.PI / 2;
     bottomRing.castShadow = true;
-    scene.add(bottomRing);
+    floorGroup.add(bottomRing);
+
+    scene.add(floorGroup);
+
+    // Grupa dla górnej struktury (z tunelem)
+    const upperStructureGroup = new THREE.Group();
+    upperStructureGroupRef.current = upperStructureGroup;
+
+    // Metalowe wykończenie góry
+    const topRing = new THREE.Mesh(topRingGeometry, metalMaterial);
+    topRing.position.y = 3;
+    topRing.rotation.x = Math.PI / 2;
+    topRing.castShadow = true;
+    upperStructureGroup.add(topRing);
 
     // Szklane ściany tunelu
     const tunnelGeometry = new THREE.CylinderGeometry(4.2, 4.2, 6, 12, 1, true);
@@ -255,7 +297,7 @@ const FlightPathVisualization = () => {
     });
     const tunnel = new THREE.Mesh(tunnelGeometry, glassMaterial);
     tunnel.castShadow = true;
-    scene.add(tunnel);
+    upperStructureGroup.add(tunnel);
 
     // Dodanie pionowych elementów i paneli ściennych
     for (let i = 0; i < 12; i++) {
@@ -270,7 +312,7 @@ const FlightPathVisualization = () => {
       pillar.position.x = Math.cos(angle) * 4.2;
       pillar.position.z = Math.sin(angle) * 4.2;
       pillar.castShadow = true;
-      scene.add(pillar);
+      upperStructureGroup.add(pillar);
 
       // Dodanie numerów paneli
       const canvas = document.createElement('canvas');
@@ -301,7 +343,7 @@ const FlightPathVisualization = () => {
         Math.sin(panelCenterAngle) * 4.1
       );
       number.rotation.y = panelCenterAngle + Math.PI / 2;
-      scene.add(number);
+      upperStructureGroup.add(number);
 
       // Dodanie ramy drzwi między pierwszym a drugim elementem
       if (i === 0) {
@@ -351,9 +393,11 @@ const FlightPathVisualization = () => {
           Math.sin(panel1Angle) * 4.1 + 1.9
         );
         doorFrameGroup.rotation.y = panel1Angle + Math.PI / 2 + (-15 * Math.PI / 180);
-        scene.add(doorFrameGroup);
+        upperStructureGroup.add(doorFrameGroup);
       }
     }
+
+    scene.add(upperStructureGroup);
 
     // Dodanie trasy lotu
     const pathPoints = [];
@@ -453,17 +497,37 @@ const FlightPathVisualization = () => {
     };
   }, [isPlaying]);
 
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying);
-  };
+  // Efekt do aktualizacji widoczności komponentów
+  useEffect(() => {
+    if (upperStructureGroupRef.current) {
+      upperStructureGroupRef.current.visible = showUpperStructure;
+    }
+  }, [showUpperStructure]);
 
   return (
     <PageWrapper>
-      <NavBar>
-        <h1>Made4Fly - Dynamic 2-Way Visualization</h1>
-      </NavBar>
       <MainContent>
         <VisualizationContainer ref={mountRef}>
+          <ControlPanel>
+            <ControlSection>
+              <h3>Widoczność elementów</h3>
+              <ToggleButton 
+                active={showUpperStructure} 
+                onClick={() => setShowUpperStructure(!showUpperStructure)}
+              >
+                Górna struktura i tunel
+              </ToggleButton>
+            </ControlSection>
+            <ControlSection>
+              <h3>Sterowanie</h3>
+              <ToggleButton 
+                active={isPlaying} 
+                onClick={() => setIsPlaying(!isPlaying)}
+              >
+                {isPlaying ? 'Stop' : 'Start'}
+              </ToggleButton>
+            </ControlSection>
+          </ControlPanel>
           <ControlsPanel>
             <div>Lewy przycisk myszy: Obrót</div>
             <div>Prawy przycisk myszy: Przesunięcie</div>
@@ -480,7 +544,7 @@ const FlightPathVisualization = () => {
           <h3>Sterowanie</h3>
           <p>Możesz obracać, przesuwać i przybliżać widok za pomocą myszy.</p>
           <button 
-            onClick={togglePlayPause}
+            onClick={() => setIsPlaying(!isPlaying)}
             style={{
               marginTop: '10px',
               padding: '5px 10px',
