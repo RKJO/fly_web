@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import FlightPathVisualization from '../FlightPathVisualization';
+import FlightPathVisualization from '../visualization/FlightPathVisualization';
 
 const PageContainer = styled.div`
   min-height: 100vh;
@@ -27,4 +27,4 @@ const VisualizationPage = () => {
   );
 };
 
-export default VisualizationPage; 
+export default VisualizationPage;
