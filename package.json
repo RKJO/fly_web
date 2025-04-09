@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@headlessui/react": "^2.2.1",
+    "framer-motion": "^12.6.3",
+    "gsap": "^3.12.7",
+    "locomotive-scroll": "^4.1.4",
+    "styled-components": "^6.1.17",
+    "tailwindcss": "^4.1.3"
+  }
+}

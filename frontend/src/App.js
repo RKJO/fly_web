@@ -1,33 +1,58 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
+import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
+import 'locomotive-scroll/dist/locomotive-scroll.css';
+import './styles/global.css';
+import Navigation from './components/Navigation';
+import Hero from './components/Hero';
 import FlightPathVisualization from './components/visualization/FlightPathVisualization';
-import GlobalStyle from './styles/global';
+import About from './components/sections/About';
+import Pricing from './components/sections/Pricing';
+import KidsZone from './components/sections/KidsZone';
+import Blog from './components/sections/Blog';
+import Contact from './components/sections/Contact';
 
-const AppContainer = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  background: #f5f5f5;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  font-family: 'Montserrat', "Helvetica", Arial, sans-serif;
-  position: relative;
-`;
+const MainContent = () => {
+  const options = {
+    smooth: true,
+    multiplier: 1,
+    class: 'is-revealed',
+  };
+
+  return (
+    <LocomotiveScrollProvider
+      options={options}
+      containerRef={React.useRef()}
+    >
+      <main data-scroll-container>
+        <Navigation />
+        <Hero />
+        <About />
+        <Pricing />
+        <KidsZone />
+        <Blog />
+        <Contact />
+      </main>
+    </LocomotiveScrollProvider>
+  );
+};
+
+const VisualizationPage = () => {
+  return (
+    <div className="visualization-page">
+      <Navigation />
+      <FlightPathVisualization />
+    </div>
+  );
+};
 
 const App = () => {
   return (
     <Router>
-      <GlobalStyle />
-      <AppContainer>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/visualization" element={<FlightPathVisualization />} />
-        </Routes>
-      </AppContainer>
+      <Routes>
+        <Route path="/" element={<MainContent />} />
+        <Route path="/visualization" element={<VisualizationPage />} />
+      </Routes>
     </Router>
   );
 };
