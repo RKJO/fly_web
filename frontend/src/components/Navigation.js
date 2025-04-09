@@ -77,6 +77,15 @@ const Navigation = () => {
     setIsOpen(false);
   };
 
+  const menuItems = [
+    { name: 'Strona główna', path: '/' },
+    { name: 'Proflyers', path: '/pricing' },
+    { name: 'Zajęcia dla dzieci', path: '/kids' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Wizualizacja', path: '/visualization' },
+    { name: 'Kontakt', path: '/#contact' }
+  ];
+
   return (
     <>
       <Nav
@@ -109,48 +118,15 @@ const Navigation = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <MenuItem 
-              to="/" 
-              onClick={handleMenuItemClick}
-            >
-              Strona główna
-            </MenuItem>
-            <MenuItem 
-              to={isVisualization ? "/" : "/#about"} 
-              onClick={handleMenuItemClick}
-            >
-              O nas
-            </MenuItem>
-            <MenuItem 
-              to={isVisualization ? "/" : "/#pricing"} 
-              onClick={handleMenuItemClick}
-            >
-              Cennik
-            </MenuItem>
-            <MenuItem 
-              to="/kids" 
-              onClick={handleMenuItemClick}
-            >
-              Zajęcia dla dzieci
-            </MenuItem>
-            <MenuItem 
-              to="/blog" 
-              onClick={handleMenuItemClick}
-            >
-              Blog
-            </MenuItem>
-            <MenuItem 
-              to="/visualization" 
-              onClick={handleMenuItemClick}
-            >
-              Wizualizacja
-            </MenuItem>
-            <MenuItem 
-              to={isVisualization ? "/" : "/#contact"} 
-              onClick={handleMenuItemClick}
-            >
-              Kontakt
-            </MenuItem>
+            {menuItems.map((item, index) => (
+              <MenuItem 
+                key={index}
+                to={item.path} 
+                onClick={handleMenuItemClick}
+              >
+                {item.name}
+              </MenuItem>
+            ))}
           </Menu>
         )}
       </AnimatePresence>

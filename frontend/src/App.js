@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
 import './styles/global.css';
@@ -12,6 +12,7 @@ import KidsZone from './components/sections/KidsZone';
 import Blog from './components/sections/Blog';
 import Contact from './components/sections/Contact';
 import Featured from './components/sections/Featured';
+import PricingPage from './components/sections/PricingPage';
 import styled from 'styled-components';
 
 const PageWrapper = styled.div`
@@ -110,6 +111,15 @@ const VisualizationPage = () => {
   );
 };
 
+const PricingPageWrapper = () => {
+  return (
+    <PageWrapper>
+      <Navigation />
+      <PricingPage />
+    </PageWrapper>
+  );
+};
+
 const App = () => {
   return (
     <Router>
@@ -118,6 +128,7 @@ const App = () => {
         <Route path="/visualization" element={<VisualizationPage />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/kids" element={<KidsZonePage />} />
+        <Route path="/pricing" element={<PricingPageWrapper />} />
       </Routes>
     </Router>
   );
