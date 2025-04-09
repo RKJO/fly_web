@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Nav = styled(motion.nav)`
   position: fixed;
@@ -47,19 +47,7 @@ const Menu = styled(motion.div)`
   z-index: 1000;
 `;
 
-const MenuItem = styled(motion.a)`
-  font-size: 48px;
-  color: white;
-  text-decoration: none;
-  margin: 20px 0;
-  position: relative;
-  
-  &:hover {
-    color: var(--accent);
-  }
-`;
-
-const MenuLink = styled(Link)`
+const MenuItem = styled(Link)`
   font-size: 48px;
   color: white;
   text-decoration: none;
@@ -74,6 +62,8 @@ const MenuLink = styled(Link)`
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isVisualization = location.pathname === '/visualization';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,6 +72,10 @@ const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleMenuItemClick = () => {
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -103,7 +97,7 @@ const Navigation = () => {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          {isOpen ? 'Close' : 'Menu'}
+          {isOpen ? 'Zamknij' : 'Menu'}
         </MenuButton>
       </Nav>
 
@@ -115,41 +109,48 @@ const Navigation = () => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <MenuItem
-              href="#home"
-              whileHover={{ x: 20 }}
-              onClick={() => setIsOpen(false)}
+            <MenuItem 
+              to="/" 
+              onClick={handleMenuItemClick}
             >
-              Home
+              Strona główna
             </MenuItem>
-            <MenuItem
-              href="#about"
-              whileHover={{ x: 20 }}
-              onClick={() => setIsOpen(false)}
+            <MenuItem 
+              to={isVisualization ? "/" : "/#about"} 
+              onClick={handleMenuItemClick}
             >
-              About
+              O nas
             </MenuItem>
-            <MenuItem
-              href="#projects"
-              whileHover={{ x: 20 }}
-              onClick={() => setIsOpen(false)}
+            <MenuItem 
+              to={isVisualization ? "/" : "/#pricing"} 
+              onClick={handleMenuItemClick}
             >
-              Projects
+              Cennik
             </MenuItem>
-            <MenuItem
-              href="#contact"
-              whileHover={{ x: 20 }}
-              onClick={() => setIsOpen(false)}
+            <MenuItem 
+              to="/kids" 
+              onClick={handleMenuItemClick}
             >
-              Contact
+              Zajęcia dla dzieci
             </MenuItem>
-            <MenuLink
-              to="/visualization"
-              whileHover={{ x: 20 }}
-              onClick={() => setIsOpen(false)}
+            <MenuItem 
+              to="/blog" 
+              onClick={handleMenuItemClick}
+            >
+              Blog
+            </MenuItem>
+            <MenuItem 
+              to="/visualization" 
+              onClick={handleMenuItemClick}
             >
               Wizualizacja
-            </MenuLink>
+            </MenuItem>
+            <MenuItem 
+              to={isVisualization ? "/" : "/#contact"} 
+              onClick={handleMenuItemClick}
+            >
+              Kontakt
+            </MenuItem>
           </Menu>
         )}
       </AnimatePresence>

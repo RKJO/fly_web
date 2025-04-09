@@ -12,7 +12,9 @@ import {
   FaTachometerAlt,
   FaArrowLeft,
   FaCog,
-  FaChartLine
+  FaChartLine,
+  FaRoute,
+  FaTag
 } from 'react-icons/fa';
 
 const SidebarContainer = styled(motion.div)`
@@ -173,9 +175,9 @@ const VisualizationSidebar = ({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           active={isPlaying}
+          data-testid="play-pause-button"
         >
-          {isPlaying ? <FaPause /> : <FaPlay />}
-          {isPlaying ? 'Pauza' : 'Start'}
+          {isPlaying ? '⏸' : '▶'}
         </ControlButton>
       </Section>
 
@@ -188,27 +190,30 @@ const VisualizationSidebar = ({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           active={showPath}
+          className={showPath ? 'active' : ''}
+          data-testid="toggle-path-button"
         >
-          {showPath ? <FaEyeSlash /> : <FaEye />}
-          {showPath ? 'Ukryj ścieżkę' : 'Pokaż ścieżkę'}
+          <FaRoute />
         </ControlButton>
         <ControlButton
           onClick={onTogglePanels}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           active={showPanels}
+          className={showPanels ? 'active' : ''}
+          data-testid="toggle-panels-button"
         >
-          <FaChartLine />
-          {showPanels ? 'Ukryj tunel' : 'Pokaż tunel'}
+          <FaLayerGroup />
         </ControlButton>
         <ControlButton
           onClick={onToggleLabels}
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           active={showLabels}
+          className={showLabels ? 'active' : ''}
+          data-testid="toggle-labels-button"
         >
-          <FaHashtag />
-          {showLabels ? 'Ukryj strukturę tunelu' : 'Pokaż strukturę tunelu'}
+          <FaTag />
         </ControlButton>
       </Section>
 
@@ -221,21 +226,23 @@ const VisualizationSidebar = ({
           <Slider
             type="range"
             min="0.1"
-            max="2"
+            max="5"
             step="0.1"
             value={speed}
             onChange={(e) => onSpeedChange(parseFloat(e.target.value))}
+            data-testid="speed-slider"
           />
         </div>
         <div>
           <label>Odległość</label>
           <Slider
             type="range"
-            min="1"
-            max="2"
-            step="0.1"
+            min="50"
+            max="500"
+            step="10"
             value={distance}
-            onChange={(e) => onDistanceChange(parseFloat(e.target.value))}
+            onChange={(e) => onDistanceChange(parseInt(e.target.value))}
+            data-testid="distance-slider"
           />
         </div>
       </Section>
