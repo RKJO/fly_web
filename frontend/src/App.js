@@ -59,7 +59,7 @@ const HomePage = () => {
       options={options}
       containerRef={React.useRef()}
     >
-      <main data-scroll-container>
+      <PageWrapper data-scroll-container>
         <Navigation />
         <Hero />
         <About />
@@ -67,7 +67,7 @@ const HomePage = () => {
         <KidsZone />
         <Blog />
         <Contact />
-      </main>
+      </PageWrapper>
     </LocomotiveScrollProvider>
   );
 };

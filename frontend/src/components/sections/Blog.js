@@ -155,7 +155,7 @@ const Blog = ({ fullPage = false }) => {
   const displayPosts = fullPage ? posts : posts.slice(0, 2);
 
   return (
-    <Section id="blog" fullPage={fullPage}>
+    <Section id="blog" fullPage={fullPage} data-scroll-section>
       <Container>
         <Title
           initial={{ opacity: 0, x: -50 }}

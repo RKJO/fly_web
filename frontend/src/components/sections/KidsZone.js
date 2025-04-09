@@ -148,7 +148,7 @@ const ScheduleTime = styled.p`
 
 const KidsZone = ({ fullPage = false }) => {
   return (
-    <Section id="kids" fullPage={fullPage}>
+    <Section id="kids" fullPage={fullPage} data-scroll-section>
       <Container>
         <Title
           initial={{ opacity: 0, x: -50 }}

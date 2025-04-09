@@ -21,8 +21,8 @@ jest.mock('three', () => {
     })),
     WebGLRenderer: jest.fn().mockImplementation(() => ({
       setSize: jest.fn(),
-      shadowMap: { enabled: false, type: null },
-      domElement: document.createElement('canvas'),
+      shadowMap: { enabled: true, type: 'PCFSoftShadowMap' },
+      domElement: document.createElement('div'),
       render: jest.fn(),
       dispose: jest.fn(),
     })),
@@ -119,6 +119,13 @@ describe('FlightPathVisualization', () => {
       }
       return originalCreateElement.call(document, tagName);
     });
+
+    // Mock window.innerWidth
+    Object.defineProperty(window, 'innerWidth', {
+      writable: true,
+      configurable: true,
+      value: 1024
+    });
   });
 
   test('renderuje się poprawnie', () => {
@@ -200,5 +207,29 @@ describe('FlightPathVisualization', () => {
     
     // Sprawdzenie, czy cancelAnimationFrame został wywołany
     expect(global.cancelAnimationFrame).toHaveBeenCalled();
+  });
+
+  it('renders visualization container', () => {
+    render(<FlightPathVisualization />);
+    expect(screen.getByTestId('visualization-container')).toBeInTheDocument();
+  });
+
+  it('renders sidebar toggle button', () => {
+    render(<FlightPathVisualization />);
+    expect(screen.getByTestId('sidebar-toggle')).toBeInTheDocument();
+  });
+
+  it('toggles sidebar visibility on button click', () => {
+    render(<FlightPathVisualization />);
+    const toggleButton = screen.getByTestId('sidebar-toggle');
+    fireEvent.click(toggleButton);
+    expect(screen.getByTestId('visualization-sidebar')).toHaveStyle({ transform: 'translateX(0px)' });
+  });
+
+  it('renders sidebar with controls', () => {
+    render(<FlightPathVisualization />);
+    expect(screen.getByText('Kontrola')).toBeInTheDocument();
+    expect(screen.getByText('Widoczność')).toBeInTheDocument();
+    expect(screen.getByText('Ustawienia')).toBeInTheDocument();
   });
 }); 
