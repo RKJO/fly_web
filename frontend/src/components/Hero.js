@@ -100,14 +100,14 @@ const Hero = () => {
         >
           Explore the
           <br />
-          <span className="text-gradient">Future</span>
+          <span className="text-gradient">Fly World</span>
         </Title>
         <Subtitle
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          Discover the endless possibilities of virtual reality
+          Zobacz nieskończoność możliwości Indoor skydivingu
         </Subtitle>
       </HeroContent>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaRegClock, FaRegCalendarAlt, FaRegStar, FaChild } from 'react-icons/fa';
+import kidsImage from '../../assets/img/kids.jpeg';
 
 const Section = styled.section`
   min-height: ${props => props.fullPage ? '100vh' : 'auto'};
@@ -218,7 +219,7 @@ const KidsZone = ({ fullPage = false }) => {
             viewport={{ once: true }}
           >
             <Image 
-              src="https://images.unsplash.com/photo-1599251037554-8a01d0ca0137?q=80" 
+              src={kidsImage} 
               alt="Dziecko podczas lotu w tunelu aerodynamicznym" 
             />
           </ImageWrapper>

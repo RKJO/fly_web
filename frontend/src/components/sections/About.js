@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
+import aboutImage from '../../assets/img/about.jpeg';
 
 const AboutSection = styled.section`
   min-height: 100vh;
@@ -143,7 +144,7 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <img src="/images/about.jpg" alt="O nas" />
+          <img src={aboutImage} alt="O nas" />
         </ImageContainer>
       </Content>
     </AboutSection>
