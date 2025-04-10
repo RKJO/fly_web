@@ -104,8 +104,8 @@ const About = () => {
         >
           <Title>O nas</Title>
           <Description>
-            Jesteśmy pasjonatami lotnictwa, którzy łączą nowoczesną technologię z edukacją.
-            Nasza misja to inspirowanie kolejnych pokoleń pilotów i entuzjastów lotnictwa.
+            Jesteśmy pasjonatami sportu, którzy łączą nowoczesną pasję z edukacją.
+            Nasza misja to inspirowanie kolejnych pokoleń proflyerów i entuzjastów skydivingu.
           </Description>
           <Stats>
             <StatItem

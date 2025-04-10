@@ -12,7 +12,7 @@ import KidsZone from './components/sections/KidsZone';
 import Blog from './components/sections/Blog';
 import Contact from './components/sections/Contact';
 import Featured from './components/sections/Featured';
-import PricingPage from './components/sections/PricingPage';
+import PricingPage from './pages/PricingPage';
 import styled from 'styled-components';
 
 const PageWrapper = styled.div`
@@ -20,33 +20,6 @@ const PageWrapper = styled.div`
   background: var(--primary);
 `;
 
-const FeaturedSection = styled.section`
-  background: var(--primary);
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  position: relative;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-`;
 
 const HomePage = () => {
   const options = {
@@ -65,6 +38,7 @@ const HomePage = () => {
         <Hero />
         <About />
         <Pricing />
+        <Featured />
         <KidsZone />
         <Blog />
         <Contact />

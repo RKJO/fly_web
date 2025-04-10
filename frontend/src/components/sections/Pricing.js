@@ -1,153 +1,169 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { FaPlane, FaCrown, FaUserFriends } from 'react-icons/fa';
+import { FaStar, FaCrown, FaRocket } from 'react-icons/fa';
 
-const Section = styled.section`
-  padding: 100px 0;
+const PageWrapper = styled.div`
+  min-height: 100vh;
+  padding-top: 80px;
   background: var(--primary);
-  color: white;
 `;
 
 const Container = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 40px 20px;
 `;
 
-const Title = styled.h2`
-  font-size: 48px;
-  margin-bottom: 60px;
+const Title = styled(motion.h2)`
+  font-size: 4rem;
   text-align: center;
+  margin-bottom: 60px;
+  color: var(--text);
+  background: linear-gradient(45deg, var(--accent), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
 `;
 
 const PricingGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
-  margin-bottom: 60px;
+  margin-top: 60px;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const PricingCard = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.1);
-  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 20px;
+  padding: 40px;
   text-align: center;
   position: relative;
-  backdrop-filter: blur(10px);
+  overflow: hidden;
+  transition: transform 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--accent), transparent);
+    opacity: 0.1;
+  }
 `;
 
 const PopularBadge = styled.div`
   position: absolute;
-  top: -15px;
-  right: 20px;
+  top: 35px;
+  right: -50px;
   background: var(--accent);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transform: rotate(15deg);
-  z-index: 1;
+  color: var(--primary);
+  padding: 8px 40px;
+  transform: rotate(45deg);
+  font-weight: bold;
+  font-size: 0.9rem;
 `;
 
 const PlanName = styled.h3`
-  font-size: 24px;
+  font-size: 2rem;
+  color: var(--text);
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 `;
 
 const Price = styled.div`
-  font-size: 36px;
-  font-weight: 700;
-  margin-bottom: 30px;
+  font-size: 3.5rem;
   color: var(--accent);
+  margin-bottom: 30px;
+  font-weight: bold;
+
+  span {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: normal;
+  }
 `;
 
 const Features = styled.ul`
   list-style: none;
+  margin: 0;
   padding: 0;
-  margin: 0 0 30px 0;
+  margin-bottom: 30px;
 `;
 
 const Feature = styled.li`
-  margin: 10px 0;
-  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  svg {
+    color: var(--accent);
+  }
 `;
 
 const Button = styled(motion.button)`
   background: var(--accent);
-  color: white;
+  color: var(--primary);
   border: none;
   padding: 15px 30px;
   border-radius: 30px;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 1.1rem;
   cursor: pointer;
+  transition: transform 0.3s ease;
   width: 100%;
-  transition: all 0.3s ease;
-  margin-top: auto;
+  font-weight: bold;
 
   &:hover {
-    background: var(--accent-dark);
+    transform: scale(1.05);
   }
 `;
 
-const ActivityTiles = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-top: 60px;
-`;
-
-const ActivityTile = styled(motion.div)`
-  background: rgba(255, 255, 255, 0.05);
-  padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-`;
-
-const ActivityTitle = styled.h4`
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: var(--accent);
-`;
-
-const ActivityDescription = styled.p`
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
-`;
-
-const Pricing = () => {
+const Pricing = ({ isSection = false }) => {
   const plans = [
     {
       name: 'Basic',
-      icon: <FaPlane />,
+      icon: <FaRocket />,
       price: '700',
       features: [
         '10 minut w tunelu',
         'Podstawowe szkolenie',
         'Sprzęt w cenie',
-        'Instruktor'
+        'Certyfikat ukończenia',
+        'Wsparcie online'
       ]
     },
     {
       name: 'Popular',
-      icon: <FaUserFriends />,
+      icon: <FaStar />,
       price: '1000',
       features: [
         '15 minut w tunelu',
         'Zaawansowane szkolenie',
         'Sprzęt w cenie',
-        'Instruktor',
         'Certyfikat ukończenia',
-        'Zdjęcia z lotu'
+        'Wsparcie premium',
+        'Dostęp do społeczności'
       ],
       popular: true
     },
@@ -159,49 +175,46 @@ const Pricing = () => {
         'Abonament miesięczny',
         'Regularne treningi',
         'Indywidualny instruktor',
-        'Sprzęt w cenie'
+        'Sprzęt w cenie',
+        'Certyfikat ukończenia',
+        'Wsparcie 24/7',
+        'Dostęp do społeczności'
       ]
     }
   ];
 
-  const activities = [
-    {
-      title: 'Szkolenie podstawowe',
-      description: 'Poznaj podstawy latania w tunelu aerodynamicznym. Idealne dla początkujących.'
-    },
-    {
-      title: 'Trening zaawansowany',
-      description: 'Zaawansowane techniki latania dla doświadczonych flyerów.'
-    },
-    {
-      title: 'Zajęcia grupowe',
-      description: 'Treningi w grupie pod okiem doświadczonych instruktorów.'
-    },
-    {
-      title: 'Szkolenie indywidualne',
-      description: 'Indywidualne podejście do Twoich potrzeb i celów treningowych.'
-    }
-  ];
-
   return (
-    <Section id="pricing" data-scroll-section>
+    <PageWrapper data-scroll-section={isSection}>
       <Container>
-        <Title>Wybierz swój plan</Title>
+        <Title
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          Wybierz swój plan
+        </Title>
         <PricingGrid>
           {plans.map((plan, index) => (
             <PricingCard
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
+              key={plan.name}
+              initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
               viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               {plan.popular && <PopularBadge>Najpopularniejszy</PopularBadge>}
-              <PlanName>{plan.name}</PlanName>
-              <Price>{plan.price}{plan.price !== 'Wycena indywidualna' ? ' zł' : ''}</Price>
+              <PlanName>
+                {plan.icon} {plan.name}
+              </PlanName>
+              <Price>
+                {plan.price}{plan.price !== 'Wycena indywidualna' ? ' zł' : ''} <span>{plan.price !== 'Wycena indywidualna' ? '/ sesja' : ''}</span>
+              </Price>
               <Features>
                 {plan.features.map((feature, i) => (
-                  <Feature key={i}>{feature}</Feature>
+                  <Feature key={i}>
+                    <FaStar size={12} /> {feature}
+                  </Feature>
                 ))}
               </Features>
               <Button
@@ -213,23 +226,8 @@ const Pricing = () => {
             </PricingCard>
           ))}
         </PricingGrid>
-
-        <ActivityTiles>
-          {activities.map((activity, index) => (
-            <ActivityTile
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <ActivityTitle>{activity.title}</ActivityTitle>
-              <ActivityDescription>{activity.description}</ActivityDescription>
-            </ActivityTile>
-          ))}
-        </ActivityTiles>
       </Container>
-    </Section>
+    </PageWrapper>
   );
 };
 

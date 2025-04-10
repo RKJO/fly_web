@@ -11,7 +11,7 @@ const Section = styled.section`
   align-items: center;
   justify-content: center;
   color: white;
-  background: var(--primary);
+  background: var(--secondary);
   padding: 80px 20px;
 `;
 
@@ -104,7 +104,7 @@ const Button = styled(Link)`
 
 const Featured = () => {
   return (
-    <Section>
+    <Section data-scroll-section>
       <Container>
         <Content>
           <Title
