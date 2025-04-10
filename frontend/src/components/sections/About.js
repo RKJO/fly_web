@@ -9,6 +9,18 @@ const AboutSection = styled.section`
   background: var(--secondary);
   position: relative;
   overflow: hidden;
+
+  @media (max-width: 1200px) {
+    padding: 100px 30px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 80px 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 60px 15px;
+  }
 `;
 
 const Content = styled.div`
@@ -19,9 +31,17 @@ const Content = styled.div`
   gap: 60px;
   align-items: center;
 
+  @media (max-width: 1200px) {
+    gap: 40px;
+  }
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 30px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 20px;
   }
 `;
 
@@ -34,8 +54,19 @@ const Title = styled(motion.h2)`
   margin-bottom: 30px;
   line-height: 1.2;
 
+  @media (max-width: 1200px) {
+    font-size: 3.5rem;
+    margin-bottom: 25px;
+  }
+
   @media (max-width: 768px) {
     font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
   }
 `;
 
@@ -44,6 +75,16 @@ const Description = styled(motion.p)`
   line-height: 1.6;
   color: var(--text-secondary);
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
 `;
 
 const Stats = styled(motion.div)`
@@ -51,6 +92,16 @@ const Stats = styled(motion.div)`
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
   margin-top: 60px;
+
+  @media (max-width: 768px) {
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 15px;
+    margin-top: 30px;
+  }
 `;
 
 const StatItem = styled(motion.div)`
@@ -61,11 +112,23 @@ const StatNumber = styled(motion.h3)`
   font-size: 3rem;
   color: var(--accent);
   margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2rem;
+  }
 `;
 
 const StatLabel = styled(motion.p)`
   font-size: 1rem;
   color: var(--text-secondary);
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ImageContainer = styled(motion.div)`
@@ -74,6 +137,18 @@ const ImageContainer = styled(motion.div)`
   height: 600px;
   border-radius: 20px;
   overflow: hidden;
+
+  @media (max-width: 1200px) {
+    height: 500px;
+  }
+
+  @media (max-width: 768px) {
+    height: 400px;
+  }
+
+  @media (max-width: 480px) {
+    height: 300px;
+  }
 
   &::before {
     content: '';

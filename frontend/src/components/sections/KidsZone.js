@@ -25,6 +25,21 @@ const Title = styled(motion.h2)`
   background: linear-gradient(45deg, var(--accent), #fff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  @media (max-width: 1200px) {
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 968px) {
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
 `;
 
 const Grid = styled.div`
@@ -32,8 +47,17 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
 
+  @media (max-width: 1200px) {
+    gap: 3rem;
+  }
+
   @media (max-width: 968px) {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1.5rem;
   }
 `;
 
@@ -48,9 +72,18 @@ const ImageWrapper = styled(motion.div)`
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 
+  @media (max-width: 1200px) {
+    height: 500px;
+  }
+
   @media (max-width: 968px) {
     height: 400px;
     margin-top: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    height: 300px;
+    margin-top: 1.5rem;
   }
 
   &:before {
@@ -86,6 +119,15 @@ const InfoGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
+
+  @media (max-width: 968px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 `;
 
 const InfoCard = styled.div`
@@ -95,6 +137,10 @@ const InfoCard = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
 `;
 
 const InfoIcon = styled.div`
@@ -105,12 +151,20 @@ const InfoIcon = styled.div`
 const InfoCardTitle = styled.h4`
   font-size: 1.5rem;
   color: #fff;
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const InfoText = styled.p`
   font-size: 1.1rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const Schedule = styled.div`
@@ -127,24 +181,41 @@ const ScheduleGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 `;
 
 const ScheduleCard = styled.div`
   background: rgba(255, 255, 255, 0.05);
   padding: 2rem;
   border-radius: 15px;
+
+  @media (max-width: 480px) {
+    padding: 1.5rem;
+  }
 `;
 
 const ScheduleDay = styled.h4`
   font-size: 1.5rem;
   color: #fff;
   margin-bottom: 1rem;
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+  }
 `;
 
 const ScheduleTime = styled.p`
   font-size: 1.1rem;
   color: var(--accent);
   margin-bottom: 0.5rem;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
 `;
 
 const KidsZone = ({ fullPage = false }) => {
