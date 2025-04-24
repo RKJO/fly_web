@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { LocomotiveScrollProvider } from 'react-locomotive-scroll';
 import 'locomotive-scroll/dist/locomotive-scroll.css';
 import './styles/global.css';
@@ -20,7 +20,6 @@ const PageWrapper = styled.div`
   background: var(--primary);
 `;
 
-
 const HomePage = () => {
   const options = {
     smooth: true,
@@ -29,10 +28,7 @@ const HomePage = () => {
   };
 
   return (
-    <LocomotiveScrollProvider
-      options={options}
-      containerRef={React.useRef()}
-    >
+    <LocomotiveScrollProvider options={options} containerRef={React.useRef()}>
       <PageWrapper data-scroll-container>
         <Navigation />
         <Hero />
@@ -64,10 +60,7 @@ const KidsZonePage = () => {
   };
 
   return (
-    <LocomotiveScrollProvider
-      options={options}
-      containerRef={React.useRef()}
-    >
+    <LocomotiveScrollProvider options={options} containerRef={React.useRef()}>
       <PageWrapper data-scroll-container>
         <Navigation />
         <KidsZone fullPage />

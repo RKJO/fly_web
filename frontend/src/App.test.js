@@ -33,11 +33,11 @@ describe('App Routing', () => {
   it('navigation links work correctly', () => {
     renderWithRouter(<App />);
     expect(screen.getByText('Dla najmłodszych')).toBeInTheDocument();
-    
+
     const blogLink = screen.getByText('Czytaj więcej');
     expect(blogLink.getAttribute('href')).toBe('/blog');
-    
+
     const kidsLink = screen.getByText('Dowiedz się więcej');
     expect(kidsLink.getAttribute('href')).toBe('/kids');
   });
-}); 
+});
