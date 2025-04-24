@@ -33,4 +33,4 @@ global.ResizeObserver = class ResizeObserver {
 global.performance = {
   ...global.performance,
   now: jest.fn(() => Date.now()),
-}; 
+};

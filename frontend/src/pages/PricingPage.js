@@ -150,8 +150,8 @@ const PricingPage = () => {
         'Podstawowe szkolenie',
         'Sprzęt w cenie',
         'Certyfikat ukończenia',
-        'Wsparcie online'
-      ]
+        'Wsparcie online',
+      ],
     },
     {
       name: 'Popular',
@@ -163,9 +163,9 @@ const PricingPage = () => {
         'Sprzęt w cenie',
         'Certyfikat ukończenia',
         'Wsparcie premium',
-        'Dostęp do społeczności'
+        'Dostęp do społeczności',
       ],
-      popular: true
+      popular: true,
     },
     {
       name: 'Regular',
@@ -178,9 +178,9 @@ const PricingPage = () => {
         'Sprzęt w cenie',
         'Certyfikat ukończenia',
         'Wsparcie 24/7',
-        'Dostęp do społeczności'
-      ]
-    }
+        'Dostęp do społeczności',
+      ],
+    },
   ];
 
   return (
@@ -217,10 +217,7 @@ const PricingPage = () => {
                   </Feature>
                 ))}
               </Features>
-              <Button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <Button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 Wybierz plan
               </Button>
             </PricingCard>
@@ -231,4 +228,4 @@ const PricingPage = () => {
   );
 };
 
-export default PricingPage; 
+export default PricingPage;

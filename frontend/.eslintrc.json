@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended"
+  ],
+  "plugins": [
+    "unused-imports",
+    "react",
+    "react-hooks",
+    "jsx-a11y"
+  ],
+  "rules": {
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "react/prop-types": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "jsx-a11y/anchor-is-valid": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-debugger": "warn",
+    "no-unused-vars": "warn",
+    "prefer-const": "warn"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+} 

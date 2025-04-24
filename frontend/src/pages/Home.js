@@ -23,7 +23,7 @@ const HeroSection = styled.div`
   background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
   margin: 0;
   padding: 0;
-  
+
   &:before {
     content: '';
     position: absolute;
@@ -31,7 +31,8 @@ const HeroSection = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat;
+    background: url('https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')
+      center/cover no-repeat;
     opacity: 0.2;
     z-index: 0;
   }
@@ -47,14 +48,14 @@ const HeroTitle = styled.h1`
   font-size: 4.5rem;
   margin-bottom: 20px;
   font-weight: 700;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const HeroSubtitle = styled.p`
   font-size: 1.5rem;
   margin-bottom: 40px;
   opacity: 0.9;
-  text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 `;
 
 const Button = styled(Link)`
@@ -67,7 +68,7 @@ const Button = styled(Link)`
   font-size: 1.1rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
-  
+
   &:hover {
     background: #f50057;
     transform: translateY(-2px);
@@ -83,7 +84,7 @@ const Section = styled.section`
   position: relative;
   width: 100%;
   margin: 0;
-  background: ${props => props.gray ? '#f5f5f5' : 'white'};
+  background: ${props => (props.gray ? '#f5f5f5' : 'white')};
 `;
 
 const SectionTitle = styled.h2`
@@ -91,7 +92,7 @@ const SectionTitle = styled.h2`
   margin-bottom: 40px;
   color: #1a237e;
   position: relative;
-  
+
   &:after {
     content: '';
     display: block;
@@ -122,11 +123,11 @@ const PricingCard = styled.div`
   background: white;
   border-radius: 10px;
   padding: 40px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  
+
   &:before {
     content: '';
     position: absolute;
@@ -136,10 +137,10 @@ const PricingCard = styled.div`
     height: 5px;
     background: ${props => props.color || '#1a237e'};
   }
-  
+
   &:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -155,20 +156,20 @@ const FeatureList = styled.ul`
   padding: 0;
   margin: 0 0 30px;
   text-align: left;
-  
+
   li {
     padding: 10px 0;
     border-bottom: 1px solid #eee;
     display: flex;
     align-items: center;
-    
+
     &:before {
       content: '✓';
       color: #ff4081;
       margin-right: 10px;
       font-weight: bold;
     }
-    
+
     &:last-child {
       border-bottom: none;
     }
@@ -188,12 +189,12 @@ const BlogCard = styled.div`
   background: white;
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  
+
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
   }
 `;
 
@@ -225,9 +226,7 @@ const Home = () => {
       <HeroSection>
         <HeroContent>
           <HeroTitle>Fly Web</HeroTitle>
-          <HeroSubtitle>
-            Profesjonalne treningi i zajęcia dla skoczków spadochronowych
-          </HeroSubtitle>
+          <HeroSubtitle>Profesjonalne treningi i zajęcia dla skoczków spadochronowych</HeroSubtitle>
           <Button to="/visualization">Zobacz wizualizację</Button>
         </HeroContent>
       </HeroSection>
@@ -235,8 +234,9 @@ const Home = () => {
       <Section id="about">
         <SectionTitle>O Nas</SectionTitle>
         <SectionSubtitle>
-          Jesteśmy zespołem doświadczonych instruktorów i pasjonatów skoków spadochronowych.
-          Nasza misja to dzielenie się wiedzą i doświadczeniem z każdym, kto chce rozwijać się w tej dziedzinie.
+          Jesteśmy zespołem doświadczonych instruktorów i pasjonatów skoków spadochronowych. Nasza
+          misja to dzielenie się wiedzą i doświadczeniem z każdym, kto chce rozwijać się w tej
+          dziedzinie.
         </SectionSubtitle>
         <div className="row">
           <div className="col-md-4">
@@ -246,7 +246,10 @@ const Home = () => {
               </div>
               <div className="description">
                 <h4 className="info-title">Doświadczenie</h4>
-                <p>Ponad 10 lat doświadczenia w szkoleniu skoczków spadochronowych na różnych poziomach zaawansowania.</p>
+                <p>
+                  Ponad 10 lat doświadczenia w szkoleniu skoczków spadochronowych na różnych
+                  poziomach zaawansowania.
+                </p>
               </div>
             </div>
           </div>
@@ -257,7 +260,10 @@ const Home = () => {
               </div>
               <div className="description">
                 <h4 className="info-title">Certyfikacje</h4>
-                <p>Wszyscy nasi instruktorzy posiadają międzynarodowe certyfikacje i regularnie uczestniczą w szkoleniach.</p>
+                <p>
+                  Wszyscy nasi instruktorzy posiadają międzynarodowe certyfikacje i regularnie
+                  uczestniczą w szkoleniach.
+                </p>
               </div>
             </div>
           </div>
@@ -278,7 +284,8 @@ const Home = () => {
       <Section id="pricing" className="section-gray">
         <SectionTitle>Cennik</SectionTitle>
         <SectionSubtitle>
-          Wybierz pakiet dopasowany do Twoich potrzeb i rozpocznij swoją przygodę ze skokami spadochronowymi
+          Wybierz pakiet dopasowany do Twoich potrzeb i rozpocznij swoją przygodę ze skokami
+          spadochronowymi
         </SectionSubtitle>
         <PricingGrid>
           <PricingCard color="#1a237e">
@@ -293,7 +300,7 @@ const Home = () => {
             </FeatureList>
             <Button to="/contact">Wybierz pakiet</Button>
           </PricingCard>
-          
+
           <PricingCard color="#ff4081">
             <h3>Pakiet Pro</h3>
             <Price>900 zł</Price>
@@ -307,7 +314,7 @@ const Home = () => {
             </FeatureList>
             <Button to="/contact">Wybierz pakiet</Button>
           </PricingCard>
-          
+
           <PricingCard color="#00bcd4">
             <h3>Pakiet Indywidualny</h3>
             <Price>Cena indywidualna</Price>
@@ -328,32 +335,51 @@ const Home = () => {
       <Section id="blog">
         <SectionTitle>Blog</SectionTitle>
         <SectionSubtitle>
-          Artykuły, porady i inspiracje dla skoczków spadochronowych na każdym poziomie zaawansowania
+          Artykuły, porady i inspiracje dla skoczków spadochronowych na każdym poziomie
+          zaawansowania
         </SectionSubtitle>
         <BlogGrid>
           <BlogCard>
-            <BlogImage src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Blog post" />
+            <BlogImage
+              src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+              alt="Blog post"
+            />
             <BlogContent>
               <BlogTitle>Podstawy skoków spadochronowych</BlogTitle>
-              <BlogExcerpt>Poznaj podstawowe techniki i zasady bezpieczeństwa, które powinien znać każdy początkujący skoczek spadochronowy.</BlogExcerpt>
+              <BlogExcerpt>
+                Poznaj podstawowe techniki i zasady bezpieczeństwa, które powinien znać każdy
+                początkujący skoczek spadochronowy.
+              </BlogExcerpt>
               <Button to="/blog/1">Czytaj więcej</Button>
             </BlogContent>
           </BlogCard>
-          
+
           <BlogCard>
-            <BlogImage src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Blog post" />
+            <BlogImage
+              src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+              alt="Blog post"
+            />
             <BlogContent>
               <BlogTitle>Zaawansowane techniki</BlogTitle>
-              <BlogExcerpt>Jak zostać profesjonalnym skoczkiem? Poznaj zaawansowane techniki, które pomogą Ci osiągnąć kolejny poziom.</BlogExcerpt>
+              <BlogExcerpt>
+                Jak zostać profesjonalnym skoczkiem? Poznaj zaawansowane techniki, które pomogą Ci
+                osiągnąć kolejny poziom.
+              </BlogExcerpt>
               <Button to="/blog/2">Czytaj więcej</Button>
             </BlogContent>
           </BlogCard>
-          
+
           <BlogCard>
-            <BlogImage src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Blog post" />
+            <BlogImage
+              src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
+              alt="Blog post"
+            />
             <BlogContent>
               <BlogTitle>Bezpieczeństwo w powietrzu</BlogTitle>
-              <BlogExcerpt>Najważniejsze zasady bezpieczeństwa, które powinien znać każdy skoczek spadochronowy, niezależnie od poziomu zaawansowania.</BlogExcerpt>
+              <BlogExcerpt>
+                Najważniejsze zasady bezpieczeństwa, które powinien znać każdy skoczek
+                spadochronowy, niezależnie od poziomu zaawansowania.
+              </BlogExcerpt>
               <Button to="/blog/3">Czytaj więcej</Button>
             </BlogContent>
           </BlogCard>
@@ -363,4 +389,4 @@ const Home = () => {
   );
 };
 
-export default Home; 
+export default Home;

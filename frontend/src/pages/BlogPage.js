@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const Section = styled.section`
-  min-height: ${props => props.fullPage ? '100vh' : 'auto'};
-  padding: ${props => props.fullPage ? '120px 20px' : '80px 20px'};
+  min-height: ${props => (props.fullPage ? '100vh' : 'auto')};
+  padding: ${props => (props.fullPage ? '120px 20px' : '80px 20px')};
   background: var(--primary);
   color: var(--text);
   position: relative;
@@ -28,8 +29,9 @@ const Title = styled(motion.h2)`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: ${props => props.fullPage ? 'repeat(auto-fit, minmax(400px, 1fr))' : 'repeat(2, 1fr)'};
-  gap: ${props => props.fullPage ? '4rem' : '2rem'};
+  grid-template-columns: ${props =>
+    props.fullPage ? 'repeat(auto-fit, minmax(400px, 1fr))' : 'repeat(2, 1fr)'};
+  gap: ${props => (props.fullPage ? '4rem' : '2rem')};
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -42,13 +44,13 @@ const Card = styled(motion.article)`
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
-  height: ${props => props.fullPage ? '500px' : '300px'};
-  
+  height: ${props => (props.fullPage ? '500px' : '300px')};
+
   &:hover {
     .card-image {
       transform: scale(1.05);
     }
-    
+
     .card-content {
       background: rgba(0, 0, 0, 0.9);
     }
@@ -67,7 +69,7 @@ const CardContent = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
-  padding: ${props => props.fullPage ? '3rem' : '2rem'};
+  padding: ${props => (props.fullPage ? '3rem' : '2rem')};
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
   transition: background 0.3s ease;
@@ -93,7 +95,7 @@ const CardDate = styled.span`
 `;
 
 const CardTitle = styled.h3`
-  font-size: ${props => props.fullPage ? '2rem' : '1.5rem'};
+  font-size: ${props => (props.fullPage ? '2rem' : '1.5rem')};
   font-weight: 700;
   margin-bottom: 1rem;
   color: #fff;
@@ -103,8 +105,8 @@ const CardText = styled.p`
   font-size: 1.1rem;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
-  max-width: ${props => props.fullPage ? '80%' : '100%'};
-  display: ${props => props.fullPage ? 'block' : '-webkit-box'};
+  max-width: ${props => (props.fullPage ? '80%' : '100%')};
+  display: ${props => (props.fullPage ? 'block' : '-webkit-box')};
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -149,22 +151,22 @@ const Blog = ({ fullPage = false }) => {
       date: '2024-04-09',
       category: 'Poradnik',
       image: 'https://images.unsplash.com/photo-1599251037554-8a01d0ca0137?q=80',
-      popular: true
+      popular: true,
     },
     {
       title: 'Techniki latania dla zaawansowanych',
       text: 'Zaawansowane techniki i triki, które pomogą Ci osiągnąć wyższy poziom w indoor skydiving. Poznaj sekrety profesjonalistów.',
       date: '2024-04-08',
       category: 'Technika',
-      image: 'https://images.unsplash.com/photo-1578774296842-c45e472b3028?q=80'
+      image: 'https://images.unsplash.com/photo-1578774296842-c45e472b3028?q=80',
     },
     {
       title: 'Bezpieczeństwo w tunelu aerodynamicznym',
       text: 'Wszystko co musisz wiedzieć o bezpieczeństwie podczas latania w tunelu. Procedury, sprzęt i najważniejsze zasady.',
       date: '2024-04-07',
       category: 'Bezpieczeństwo',
-      image: 'https://images.unsplash.com/photo-1600679472829-3044539ce8ed?q=80'
-    }
+      image: 'https://images.unsplash.com/photo-1600679472829-3044539ce8ed?q=80',
+    },
   ];
 
   const displayPosts = fullPage ? posts : posts.slice(0, 2);
@@ -210,4 +212,8 @@ const Blog = ({ fullPage = false }) => {
   );
 };
 
-export default Blog; 
+Blog.propTypes = {
+  fullPage: PropTypes.bool
+};
+
+export default Blog;
