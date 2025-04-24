@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Nav = styled(motion.nav)`
   position: fixed;
@@ -53,7 +53,7 @@ const MenuItem = styled(Link)`
   text-decoration: none;
   margin: 20px 0;
   position: relative;
-  
+
   &:hover {
     color: var(--accent);
   }
@@ -61,13 +61,10 @@ const MenuItem = styled(Link)`
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const location = useLocation();
-  const isVisualization = location.pathname === '/visualization';
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      // Możemy dodać tutaj logikę scrollowania jeśli będzie potrzebna
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -83,22 +80,13 @@ const Navigation = () => {
     { name: 'Zajęcia dla dzieci', path: '/kids' },
     { name: 'Blog', path: '/blog' },
     { name: 'Wizualizacja', path: '/visualization' },
-    { name: 'Kontakt', path: '/#contact' }
+    { name: 'Kontakt', path: '/#contact' },
   ];
 
   return (
     <>
-      <Nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Logo
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          as={Link}
-          to="/"
-        >
+      <Nav initial={{ y: -100 }} animate={{ y: 0 }} transition={{ duration: 0.5 }}>
+        <Logo whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} as={Link} to="/">
           FLY
         </Logo>
         <MenuButton
@@ -119,11 +107,7 @@ const Navigation = () => {
             transition={{ duration: 0.3 }}
           >
             {menuItems.map((item, index) => (
-              <MenuItem 
-                key={index}
-                to={item.path} 
-                onClick={handleMenuItemClick}
-              >
+              <MenuItem key={index} to={item.path} onClick={handleMenuItemClick}>
                 {item.name}
               </MenuItem>
             ))}
@@ -134,4 +118,4 @@ const Navigation = () => {
   );
 };
 
-export default Navigation; 
+export default Navigation;

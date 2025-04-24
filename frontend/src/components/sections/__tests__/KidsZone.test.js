@@ -21,4 +21,4 @@ describe('KidsZone Component', () => {
     expect(screen.getByText('180 zł/lekcja')).toBeInTheDocument();
     expect(screen.getByText('1200 zł/tydzień')).toBeInTheDocument();
   });
-}); 
+});

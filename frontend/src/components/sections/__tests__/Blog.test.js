@@ -10,12 +10,12 @@ describe('Blog Component', () => {
 
   it('renders all blog posts with categories', () => {
     render(<Blog />);
-    
+
     // Tytuły
     expect(screen.getByText('Jak zacząć przygodę z indoor skydiving?')).toBeInTheDocument();
     expect(screen.getByText('Techniki latania dla zaawansowanych')).toBeInTheDocument();
     expect(screen.getByText('Bezpieczeństwo w tunelu aerodynamicznym')).toBeInTheDocument();
-    
+
     // Kategorie
     expect(screen.getByText('Poradnik')).toBeInTheDocument();
     expect(screen.getByText('Technika')).toBeInTheDocument();
@@ -41,4 +41,4 @@ describe('Blog Component', () => {
     const articles = screen.getAllByRole('article');
     expect(articles).toHaveLength(3);
   });
-}); 
+});

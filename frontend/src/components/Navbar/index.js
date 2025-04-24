@@ -9,8 +9,8 @@ const Nav = styled.nav`
   right: 0;
   z-index: 1000;
   transition: all 0.3s ease;
-  background: ${props => props.scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent'};
-  box-shadow: ${props => props.scrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none'};
+  background: ${props => (props.scrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent')};
+  box-shadow: ${props => (props.scrolled ? '0 2px 10px rgba(0, 0, 0, 0.1)' : 'none')};
 `;
 
 const NavContainer = styled.div`
@@ -24,7 +24,7 @@ const NavContainer = styled.div`
 `;
 
 const Logo = styled(Link)`
-  color: ${props => props.scrolled ? '#333' : '#fff'};
+  color: ${props => (props.scrolled ? '#333' : '#fff')};
   text-decoration: none;
   font-size: 1.5rem;
   font-weight: bold;
@@ -42,7 +42,7 @@ const NavLinks = styled.div`
 `;
 
 const NavLink = styled(Link)`
-  color: ${props => props.scrolled ? '#333' : '#fff'};
+  color: ${props => (props.scrolled ? '#333' : '#fff')};
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -51,7 +51,7 @@ const NavLink = styled(Link)`
   border-radius: 4px;
 
   &:hover {
-    background: ${props => props.scrolled ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)'};
+    background: ${props => (props.scrolled ? 'rgba(0, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.1)')};
   }
 `;
 
@@ -59,7 +59,7 @@ const MobileMenuButton = styled.button`
   display: none;
   background: none;
   border: none;
-  color: ${props => props.scrolled ? '#333' : '#fff'};
+  color: ${props => (props.scrolled ? '#333' : '#fff')};
   font-size: 1.5rem;
   cursor: pointer;
   padding: 8px;
@@ -80,7 +80,7 @@ const MobileMenu = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
   @media (max-width: 768px) {
-    display: ${props => props.isOpen ? 'block' : 'none'};
+    display: ${props => (props.isOpen ? 'block' : 'none')};
   }
 `;
 
@@ -117,32 +117,55 @@ const Navbar = () => {
   return (
     <Nav scrolled={scrolled}>
       <NavContainer>
-        <Logo to="/" scrolled={scrolled}>Fly Web</Logo>
+        <Logo to="/" scrolled={scrolled}>
+          Fly Web
+        </Logo>
         <NavLinks>
-          <NavLink to="/" scrolled={scrolled}>Strona główna</NavLink>
-          <NavLink to="/#about" scrolled={scrolled}>O nas</NavLink>
-          <NavLink to="/#pricing" scrolled={scrolled}>Cennik</NavLink>
-          <NavLink to="/#blog" scrolled={scrolled}>Blog</NavLink>
-          <NavLink to="/visualization" scrolled={scrolled}>Wizualizacja</NavLink>
-          <NavLink to="/#contact" scrolled={scrolled}>Kontakt</NavLink>
+          <NavLink to="/" scrolled={scrolled}>
+            Strona główna
+          </NavLink>
+          <NavLink to="/#about" scrolled={scrolled}>
+            O nas
+          </NavLink>
+          <NavLink to="/#pricing" scrolled={scrolled}>
+            Cennik
+          </NavLink>
+          <NavLink to="/#blog" scrolled={scrolled}>
+            Blog
+          </NavLink>
+          <NavLink to="/visualization" scrolled={scrolled}>
+            Wizualizacja
+          </NavLink>
+          <NavLink to="/#contact" scrolled={scrolled}>
+            Kontakt
+          </NavLink>
         </NavLinks>
-        <MobileMenuButton 
-          scrolled={scrolled} 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
+        <MobileMenuButton scrolled={scrolled} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
           ☰
         </MobileMenuButton>
       </NavContainer>
       <MobileMenu isOpen={mobileMenuOpen}>
-        <MobileNavLink to="/" onClick={() => setMobileMenuOpen(false)}>Strona główna</MobileNavLink>
-        <MobileNavLink to="/#about" onClick={() => setMobileMenuOpen(false)}>O nas</MobileNavLink>
-        <MobileNavLink to="/#pricing" onClick={() => setMobileMenuOpen(false)}>Cennik</MobileNavLink>
-        <MobileNavLink to="/#blog" onClick={() => setMobileMenuOpen(false)}>Blog</MobileNavLink>
-        <MobileNavLink to="/visualization" onClick={() => setMobileMenuOpen(false)}>Wizualizacja</MobileNavLink>
-        <MobileNavLink to="/#contact" onClick={() => setMobileMenuOpen(false)}>Kontakt</MobileNavLink>
+        <MobileNavLink to="/" onClick={() => setMobileMenuOpen(false)}>
+          Strona główna
+        </MobileNavLink>
+        <MobileNavLink to="/#about" onClick={() => setMobileMenuOpen(false)}>
+          O nas
+        </MobileNavLink>
+        <MobileNavLink to="/#pricing" onClick={() => setMobileMenuOpen(false)}>
+          Cennik
+        </MobileNavLink>
+        <MobileNavLink to="/#blog" onClick={() => setMobileMenuOpen(false)}>
+          Blog
+        </MobileNavLink>
+        <MobileNavLink to="/visualization" onClick={() => setMobileMenuOpen(false)}>
+          Wizualizacja
+        </MobileNavLink>
+        <MobileNavLink to="/#contact" onClick={() => setMobileMenuOpen(false)}>
+          Kontakt
+        </MobileNavLink>
       </MobileMenu>
     </Nav>
   );
 };
 
-export default Navbar; 
+export default Navbar;

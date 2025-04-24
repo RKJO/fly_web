@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaRegClock, FaRegCalendarAlt, FaRegStar, FaChild } from 'react-icons/fa';
 import kidsImage from '../../assets/img/kids.jpeg';
 
 const Section = styled.section`
-  min-height: ${props => props.fullPage ? '100vh' : 'auto'};
-  padding: ${props => props.fullPage ? '120px 20px' : '80px 20px'};
+  min-height: ${props => (props.fullPage ? '100vh' : 'auto')};
+  padding: ${props => (props.fullPage ? '120px 20px' : '80px 20px')};
   background: var(--primary);
   color: var(--text);
   position: relative;
@@ -70,7 +71,7 @@ const ImageWrapper = styled(motion.div)`
   height: 600px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 1200px) {
     height: 500px;
@@ -230,34 +231,43 @@ const KidsZone = ({ fullPage = false }) => {
         >
           {fullPage ? 'Zajęcia dla dzieci' : 'Dla najmłodszych'}
         </Title>
-        
+
         <Grid>
           <Content>
             <InfoText>
-              Zapraszamy dzieci w wieku od 7 do 15 lat na niezapomnianą przygodę z indoor skydivingiem! 
-              Nasze zajęcia to nie tylko świetna zabawa, ale także rozwój koordynacji, równowagi i pewności siebie.
+              Zapraszamy dzieci w wieku od 7 do 15 lat na niezapomnianą przygodę z indoor
+              skydivingiem! Nasze zajęcia to nie tylko świetna zabawa, ale także rozwój koordynacji,
+              równowagi i pewności siebie.
             </InfoText>
 
             <InfoSection>
               <InfoTitle>Co oferujemy?</InfoTitle>
               <InfoGrid>
                 <InfoCard>
-                  <InfoIcon><FaChild /></InfoIcon>
+                  <InfoIcon>
+                    <FaChild />
+                  </InfoIcon>
                   <InfoCardTitle>Grupy wiekowe</InfoCardTitle>
                   <InfoText>7-10 lat (początkujący), 11-15 lat (zaawansowani)</InfoText>
                 </InfoCard>
                 <InfoCard>
-                  <InfoIcon><FaRegStar /></InfoIcon>
+                  <InfoIcon>
+                    <FaRegStar />
+                  </InfoIcon>
                   <InfoCardTitle>Program</InfoCardTitle>
                   <InfoText>Nauka podstaw, techniki lotu, bezpieczeństwo</InfoText>
                 </InfoCard>
                 <InfoCard>
-                  <InfoIcon><FaRegClock /></InfoIcon>
+                  <InfoIcon>
+                    <FaRegClock />
+                  </InfoIcon>
                   <InfoCardTitle>Czas trwania</InfoCardTitle>
                   <InfoText>60 minut (w tym 15 minut lotu)</InfoText>
                 </InfoCard>
                 <InfoCard>
-                  <InfoIcon><FaRegCalendarAlt /></InfoIcon>
+                  <InfoIcon>
+                    <FaRegCalendarAlt />
+                  </InfoIcon>
                   <InfoCardTitle>Częstotliwość</InfoCardTitle>
                   <InfoText>1-2 razy w tygodniu</InfoText>
                 </InfoCard>
@@ -289,10 +299,7 @@ const KidsZone = ({ fullPage = false }) => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <Image 
-              src={kidsImage} 
-              alt="Dziecko podczas lotu w tunelu aerodynamicznym" 
-            />
+            <Image src={kidsImage} alt="Dziecko podczas lotu w tunelu aerodynamicznym" />
           </ImageWrapper>
         </Grid>
 
@@ -303,17 +310,19 @@ const KidsZone = ({ fullPage = false }) => {
               <InfoCard>
                 <InfoCardTitle>Pojedyncze zajęcia</InfoCardTitle>
                 <InfoText>
-                  - 150 zł / 60 min (15 min lotu)<br />
-                  - Sprzęt w cenie<br />
-                  - Instruktor dedykowany
+                  - 150 zł / 60 min (15 min lotu)
+                  <br />
+                  - Sprzęt w cenie
+                  <br />- Instruktor dedykowany
                 </InfoText>
               </InfoCard>
               <InfoCard>
                 <InfoCardTitle>Karnet miesięczny</InfoCardTitle>
                 <InfoText>
-                  - 500 zł / 4 zajęcia<br />
-                  - Sprzęt w cenie<br />
-                  - Stała grupa i instruktor
+                  - 500 zł / 4 zajęcia
+                  <br />
+                  - Sprzęt w cenie
+                  <br />- Stała grupa i instruktor
                 </InfoText>
               </InfoCard>
             </InfoGrid>
@@ -324,4 +333,8 @@ const KidsZone = ({ fullPage = false }) => {
   );
 };
 
-export default KidsZone; 
+KidsZone.propTypes = {
+  fullPage: PropTypes.bool
+};
+
+export default KidsZone;

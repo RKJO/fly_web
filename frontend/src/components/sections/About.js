@@ -180,8 +180,8 @@ const About = () => {
         >
           <Title>O nas</Title>
           <Description>
-            Jesteśmy pasjonatami sportu, którzy łączą nowoczesną pasję z edukacją.
-            Nasza misja to inspirowanie kolejnych pokoleń proflyerów i entuzjastów skydivingu.
+            Jesteśmy pasjonatami sportu, którzy łączą nowoczesną pasję z edukacją. Nasza misja to
+            inspirowanie kolejnych pokoleń proflyerów i entuzjastów skydivingu.
           </Description>
           <Stats>
             <StatItem
@@ -226,4 +226,4 @@ const About = () => {
   );
 };
 
-export default About; 
+export default About;

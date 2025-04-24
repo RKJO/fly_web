@@ -24,7 +24,7 @@ describe('VisualizationSidebar', () => {
 
   it('renders all control sections', () => {
     render(<VisualizationSidebar {...mockProps} />);
-    
+
     expect(screen.getByTestId('play-pause-button')).toBeInTheDocument();
     expect(screen.getByTestId('toggle-path-button')).toBeInTheDocument();
     expect(screen.getByTestId('toggle-panels-button')).toBeInTheDocument();
@@ -73,7 +73,7 @@ describe('VisualizationSidebar', () => {
 
   it('displays correct button states based on props', () => {
     render(<VisualizationSidebar {...mockProps} />);
-    
+
     const playPauseButton = screen.getByTestId('play-pause-button');
     const pathButton = screen.getByTestId('toggle-path-button');
     const panelsButton = screen.getByTestId('toggle-panels-button');
@@ -84,4 +84,4 @@ describe('VisualizationSidebar', () => {
     expect(panelsButton).toHaveClass('active');
     expect(labelsButton).toHaveClass('active');
   });
-}); 
+});

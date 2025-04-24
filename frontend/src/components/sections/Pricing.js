@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { FaStar, FaCrown, FaRocket } from 'react-icons/fa';
@@ -150,8 +151,8 @@ const Pricing = ({ isSection = false }) => {
         'Podstawowe szkolenie',
         'Sprzęt w cenie',
         'Certyfikat ukończenia',
-        'Wsparcie online'
-      ]
+        'Wsparcie online',
+      ],
     },
     {
       name: 'Popular',
@@ -163,9 +164,9 @@ const Pricing = ({ isSection = false }) => {
         'Sprzęt w cenie',
         'Certyfikat ukończenia',
         'Wsparcie premium',
-        'Dostęp do społeczności'
+        'Dostęp do społeczności',
       ],
-      popular: true
+      popular: true,
     },
     {
       name: 'Regular',
@@ -178,9 +179,9 @@ const Pricing = ({ isSection = false }) => {
         'Sprzęt w cenie',
         'Certyfikat ukończenia',
         'Wsparcie 24/7',
-        'Dostęp do społeczności'
-      ]
-    }
+        'Dostęp do społeczności',
+      ],
+    },
   ];
 
   return (
@@ -208,7 +209,9 @@ const Pricing = ({ isSection = false }) => {
                 {plan.icon} {plan.name}
               </PlanName>
               <Price>
-                {plan.price}{plan.price !== 'Wycena indywidualna' ? ' zł' : ''} <span>{plan.price !== 'Wycena indywidualna' ? '/ sesja' : ''}</span>
+                {plan.price}
+                {plan.price !== 'Wycena indywidualna' ? ' zł' : ''}{' '}
+                <span>{plan.price !== 'Wycena indywidualna' ? '/ sesja' : ''}</span>
               </Price>
               <Features>
                 {plan.features.map((feature, i) => (
@@ -217,10 +220,7 @@ const Pricing = ({ isSection = false }) => {
                   </Feature>
                 ))}
               </Features>
-              <Button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <Button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 Wybierz plan
               </Button>
             </PricingCard>
@@ -231,4 +231,8 @@ const Pricing = ({ isSection = false }) => {
   );
 };
 
-export default Pricing; 
+Pricing.propTypes = {
+  isSection: PropTypes.bool
+};
+
+export default Pricing;

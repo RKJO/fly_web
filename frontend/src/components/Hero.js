@@ -26,7 +26,7 @@ const Title = styled(motion.h1)`
   font-weight: 700;
   margin-bottom: 20px;
   line-height: 1;
-  
+
   @media (max-width: 768px) {
     font-size: 12vw;
   }
@@ -37,7 +37,7 @@ const Subtitle = styled(motion.p)`
   color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto;
-  
+
   @media (max-width: 768px) {
     font-size: 1.2rem;
   }
@@ -70,7 +70,7 @@ const Hero = () => {
 
   useEffect(() => {
     const section = sectionRef.current;
-    
+
     gsap.fromTo(
       section,
       {
@@ -111,11 +111,7 @@ const Hero = () => {
         </Subtitle>
       </HeroContent>
 
-      <ScrollIndicator
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-      >
+      <ScrollIndicator initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}>
         <ScrollText>Scroll to explore</ScrollText>
         <ScrollLine
           animate={{
@@ -132,4 +128,4 @@ const Hero = () => {
   );
 };
 
-export default Hero; 
+export default Hero;

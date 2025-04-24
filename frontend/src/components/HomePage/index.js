@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Navigation from '../Navigation';
 import Hero from '../Hero';
@@ -30,4 +29,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage; 
+export default HomePage;

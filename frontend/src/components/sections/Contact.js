@@ -130,10 +130,7 @@ const Contact = () => {
           <Input type="text" placeholder="Imię" />
           <Input type="email" placeholder="Email" />
           <TextArea placeholder="Wiadomość" />
-          <Button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          <Button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             Wyślij
           </Button>
         </ContactForm>
@@ -161,4 +158,4 @@ const Contact = () => {
   );
 };
 
-export default Contact; 
+export default Contact;

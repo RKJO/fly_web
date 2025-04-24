@@ -39,7 +39,7 @@ const ImageWrapper = styled(motion.div)`
   height: 600px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 
   @media (max-width: 968px) {
     height: 400px;
@@ -121,14 +121,12 @@ const Featured = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            Indoor skydiving to nie tylko sport - to niesamowite doświadczenie, 
-            które zmieni Twoje postrzeganie granic możliwości. Nasz tunel aerodynamiczny 
-            to miejsce, gdzie marzenia o lataniu stają się rzeczywistością. 
-            Dołącz do społeczności pasjonatów i odkryj nowy wymiar wolności.
+            Indoor skydiving to nie tylko sport - to niesamowite doświadczenie, które zmieni Twoje
+            postrzeganie granic możliwości. Nasz tunel aerodynamiczny to miejsce, gdzie marzenia o
+            lataniu stają się rzeczywistością. Dołącz do społeczności pasjonatów i odkryj nowy
+            wymiar wolności.
           </Text>
-          <Button to="/visualization">
-            Zobacz wizualizację lotu
-          </Button>
+          <Button to="/visualization">Zobacz wizualizację lotu</Button>
         </Content>
         <ImageWrapper
           initial={{ opacity: 0, y: 50 }}
@@ -136,9 +134,9 @@ const Featured = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <Image 
-            src="https://images.unsplash.com/photo-1578774296842-c45e472b3028?q=80" 
-            alt="Indoor skydiving experience" 
+          <Image
+            src="https://images.unsplash.com/photo-1578774296842-c45e472b3028?q=80"
+            alt="Indoor skydiving experience"
           />
         </ImageWrapper>
       </Container>
@@ -146,4 +144,4 @@ const Featured = () => {
   );
 };
 
-export default Featured; 
+export default Featured;

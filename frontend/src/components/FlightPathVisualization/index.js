@@ -1,11 +1,7 @@
 import React from 'react';
 
 const FlightPathVisualization = () => {
-  return (
-    <div>
-      FlightPathVisualization
-    </div>
-  );
+  return <div>FlightPathVisualization</div>;
 };
 
-export default FlightPathVisualization; 
+export default FlightPathVisualization;

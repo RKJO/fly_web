@@ -1,20 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  FaPlay, 
-  FaPause, 
-  FaEye, 
-  FaEyeSlash, 
-  FaLayerGroup, 
-  FaHashtag, 
+import {
+  FaLayerGroup,
   FaTachometerAlt,
   FaArrowLeft,
   FaCog,
-  FaChartLine,
   FaRoute,
-  FaTag
+  FaTag,
 } from 'react-icons/fa';
 
 const SidebarContainer = styled(motion.div)`
@@ -34,7 +29,7 @@ const SidebarContainer = styled(motion.div)`
   overflow-y: auto;
 
   @media (max-width: 767px) {
-    transform: translateX(${props => props.isVisible ? '0' : '-100%'});
+    transform: translateX(${props => (props.isVisible ? '0' : '-100%')});
     transition: transform 0.3s ease;
   }
 
@@ -87,8 +82,8 @@ const SectionTitle = styled.h3`
 `;
 
 const ControlButton = styled(motion.button)`
-  background: ${props => props.active ? 'var(--accent)' : 'rgba(255, 255, 255, 0.1)'};
-  color: ${props => props.active ? 'var(--primary)' : 'var(--text)'};
+  background: ${props => (props.active ? 'var(--accent)' : 'rgba(255, 255, 255, 0.1)')};
+  color: ${props => (props.active ? 'var(--primary)' : 'var(--text)')};
   border: none;
   border-radius: 8px;
   padding: 8px 16px;
@@ -103,7 +98,7 @@ const ControlButton = styled(motion.button)`
 
   &:hover {
     transform: translateY(-2px);
-    background: ${props => props.active ? 'var(--accent)' : 'rgba(255, 255, 255, 0.2)'};
+    background: ${props => (props.active ? 'var(--accent)' : 'rgba(255, 255, 255, 0.2)')};
   }
 
   &:active {
@@ -111,40 +106,15 @@ const ControlButton = styled(motion.button)`
   }
 `;
 
-const ControlLabel = styled.span`
-  font-size: 14px;
-  color: var(--text);
-  margin-left: 8px;
-`;
-
-const ControlRow = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-`;
-
 const Slider = styled.input`
   width: 100%;
   margin: 8px 0;
 `;
 
-const SliderContainer = styled.div`
-  width: 100%;
-  padding: 8px 0;
-`;
-
-const SliderLabel = styled.label`
-  display: block;
-  margin-bottom: 4px;
-  font-size: 12px;
-  color: var(--text);
-`;
-
-const VisualizationSidebar = ({ 
-  isPlaying, 
-  onPlayPause, 
-  showPath, 
+const VisualizationSidebar = ({
+  isPlaying,
+  onPlayPause,
+  showPath,
   onTogglePath,
   showPanels,
   onTogglePanels,
@@ -154,13 +124,14 @@ const VisualizationSidebar = ({
   onSpeedChange,
   distance,
   onDistanceChange,
-  isVisible
+  isVisible,
 }) => {
   return (
     <SidebarContainer
       initial={false}
       animate={{ x: isVisible ? 0 : -300 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
+      isVisible={isVisible}
     >
       <BackButton to="/">
         <FaArrowLeft /> Wróć do strony głównej
@@ -176,6 +147,7 @@ const VisualizationSidebar = ({
           whileTap={{ scale: 0.98 }}
           active={isPlaying}
           data-testid="play-pause-button"
+          aria-label={isPlaying ? 'Pauza' : 'Odtwarzaj'}
         >
           {isPlaying ? '⏸' : '▶'}
         </ControlButton>
@@ -192,6 +164,7 @@ const VisualizationSidebar = ({
           active={showPath}
           className={showPath ? 'active' : ''}
           data-testid="toggle-path-button"
+          aria-label={showPath ? 'Ukryj ścieżkę' : 'Pokaż ścieżkę'}
         >
           <FaRoute />
         </ControlButton>
@@ -202,6 +175,7 @@ const VisualizationSidebar = ({
           active={showPanels}
           className={showPanels ? 'active' : ''}
           data-testid="toggle-panels-button"
+          aria-label={showPanels ? 'Ukryj panele' : 'Pokaż panele'}
         >
           <FaLayerGroup />
         </ControlButton>
@@ -212,6 +186,7 @@ const VisualizationSidebar = ({
           active={showLabels}
           className={showLabels ? 'active' : ''}
           data-testid="toggle-labels-button"
+          aria-label={showLabels ? 'Ukryj etykiety' : 'Pokaż etykiety'}
         >
           <FaTag />
         </ControlButton>
@@ -222,27 +197,35 @@ const VisualizationSidebar = ({
           <FaTachometerAlt /> Ustawienia
         </SectionTitle>
         <div>
-          <label>Prędkość</label>
+          <label htmlFor="speed-slider">Prędkość</label>
           <Slider
+            id="speed-slider"
             type="range"
             min="0.1"
             max="5"
             step="0.1"
             value={speed}
-            onChange={(e) => onSpeedChange(parseFloat(e.target.value))}
+            onChange={e => onSpeedChange(parseFloat(e.target.value))}
             data-testid="speed-slider"
+            aria-valuemin="0.1"
+            aria-valuemax="5"
+            aria-valuenow={speed}
           />
         </div>
         <div>
-          <label>Odległość</label>
+          <label htmlFor="distance-slider">Odległość</label>
           <Slider
+            id="distance-slider"
             type="range"
             min="50"
             max="500"
             step="10"
             value={distance}
-            onChange={(e) => onDistanceChange(parseInt(e.target.value))}
+            onChange={e => onDistanceChange(parseInt(e.target.value))}
             data-testid="distance-slider"
+            aria-valuemin="50"
+            aria-valuemax="500"
+            aria-valuenow={distance}
           />
         </div>
       </Section>
@@ -250,4 +233,20 @@ const VisualizationSidebar = ({
   );
 };
 
-export default VisualizationSidebar; 
+VisualizationSidebar.propTypes = {
+  isPlaying: PropTypes.bool.isRequired,
+  onPlayPause: PropTypes.func.isRequired,
+  showPath: PropTypes.bool.isRequired,
+  onTogglePath: PropTypes.func.isRequired,
+  showPanels: PropTypes.bool.isRequired,
+  onTogglePanels: PropTypes.func.isRequired,
+  showLabels: PropTypes.bool.isRequired,
+  onToggleLabels: PropTypes.func.isRequired,
+  speed: PropTypes.number.isRequired,
+  onSpeedChange: PropTypes.func.isRequired,
+  distance: PropTypes.number.isRequired,
+  onDistanceChange: PropTypes.func.isRequired,
+  isVisible: PropTypes.bool.isRequired
+};
+
+export default VisualizationSidebar;
